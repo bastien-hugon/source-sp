@@ -1,0 +1,28 @@
+<!doctype html>
+<html ng-app="APP">
+    <head>
+        <meta charset="UTF-8">
+        <script src="jquery.min.js"></script>
+        <script src="/front/popup.js"></script>
+        <link rel="stylesheet" href="/css/uikit.min.css" />
+        <script src="/js/uikit.min.js"></script>
+        <script src="/js/uikit-icons.min.js"></script>
+        <script src="/front/js/angular.js"></script>
+        <script src="/front/js/route.js"></script>
+
+        <!-- Controllers -->
+        <script src="/front/controller/app.js"></script>
+        <script src="/front/controller/login.js"></script>
+        <script src="/front/controller/index.js"></script>
+        <script src="/front/controller/register.js"></script>
+        <script src="/front/controller/route.js"></script>
+    </head>
+    <body style="width: 400px; height: 400px;">
+        <div ng-controller="close">
+            <div style="position: relative; left: 380px">
+                    <button ng-click="close()" type="button" uk-close style="margin-right: 5px; margin-top: 5px"></button>
+            </div>
+        </div>
+        <div ng-view></div>
+    </body>
+</html>

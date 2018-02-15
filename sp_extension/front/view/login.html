@@ -1,0 +1,24 @@
+<form style="margin: 25px 10px 0px 10px">
+    <!--<code class="uk-code uk-panel-box uk-text-break" style="font-size: 10px">{{resp|json}}</code>-->
+    <fieldset class="uk-fieldset">
+
+        <legend class="uk-legend uk-text-primary uk-text-uppercase uk-text-center">Simply Password</legend>
+
+        <hr class="uk-divider-icon">
+
+        <div class="uk-margin">
+            <input class="uk-input" type="mail" placeholder="Mail" ng-model="mail">
+        </div>
+
+        <div class="uk-margin">
+            <input class="uk-input" type="password" placeholder="Mot de passe" ng-model="password">
+        </div>
+
+        <button class="uk-button uk-button-primary uk-width-1-1 uk-margin-small-bottom" ng-click="login(mail, password)"><div ng-if="loading" uk-spinner></div> Connexion</button>
+
+        <hr>
+
+        <p class="uk-text-primary uk-text-center">Pas encore inscrit ? <a href="#!/register">Cliquez ici.</a></p>
+
+    </fieldset>
+</form>

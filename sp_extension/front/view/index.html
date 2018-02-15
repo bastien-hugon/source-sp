@@ -1,0 +1,8 @@
+<a href="https://api.simply-password.ovh" target="_blank"><button class="uk-button uk-button-primary uk-width-1-1 uk-position-top">SIMPLY PASSWORD</button></a>
+<div style="margin: 25px 10px 0px 10px"></div>
+<div ng-if="login.success" style="margin-left: 10px;">
+    <p class="uk-text-large">Identifiants:</p>
+    <p><span uk-icon="icon: user"></span> {{login.login}} <span uk-icon="icon: lock"></span>**********</p>
+</div>
+<div ng-if="!login.success" class="uk-position-center">{{login}}</div>
+<button class="uk-button uk-button-primary uk-width-1-1 uk-position-bottom" ng-click="logout()"><span uk-icon="icon: sign-out"></span>Déconnexion</button>
