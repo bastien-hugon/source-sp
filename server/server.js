@@ -1,25 +1,21 @@
-var app = require('http').createServer(handler)
-var io = require('socket.io')(app);
+var app = require('express')();
+var express = require('express');
+var server = require('http').Server(app);
+var io = require('socket.io')(server);
 var fs = require('fs');
+eval(fs.readFileSync('assets/https/https.js')+'');
 
-app.listen(80);
-
-function handler (req, res) {
-  fs.readFile(__dirname + '/index.html',
-  function (err, data) {
-    if (err) {
-      res.writeHead(500);
-      return res.end('Error loading index.html');
-    }
-
-    res.writeHead(200);
-    res.end(data);
-  });
-}
-
-io.on('connection', function (socket) {
-  socket.emit('news', { hello: 'world' });
-  socket.on('my other event', function (data) {
-    console.log(data);
-  });
+// Launch Express Server on 4242
+httpServer.listen(8080, function () {
+	console.log('Server running on 8080 on HTTP');
 });
+
+httpsServer.listen(443, function () {
+	console.log('Server running on 4242 on HTTPS');
+});
+
+// Define the static route for all files required by the website
+app.use('/', express.static(__dirname + '/html/'));
+
+// Get API Content
+eval(fs.readFileSync('assets/api/api.js')+'');
