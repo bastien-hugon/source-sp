@@ -6,12 +6,8 @@ var fs = require('fs');
 eval(fs.readFileSync('assets/https/https.js')+'');
 
 // Launch Express Server on 4242
-httpServer.listen(8080, function () {
+server.listen(8080, function () {
 	console.log('Server running on 8080 on HTTP');
-});
-
-httpsServer.listen(443, function () {
-	console.log('Server running on 4242 on HTTPS');
 });
 
 // Define the static route for all files required by the website
