@@ -23,13 +23,13 @@ io.on('connection', function (socket) {
 	var ip = socket.handshake.headers["x-real-ip"];
 	var port = socket.handshake.headers["x-real-port"];
 	console.log("Connection from: " + ip + ":" + port);
-	socket.on('login', function(mail, pwd){
+	socket.on('login', function(email, pwd){
 		MongoClient.connect(url, function(err, db) {
 			if (err) throw err;
 			var dbo = db.db("simply");
 			var hash = crypto.createHash('sha256').update(pwd).digest('base64');
 			console.log(hash);
-			dbo.collection("users").find({}, { _id: 0, mail: mail, password: hash }).toArray(function(err, res) {
+			dbo.collection("users").find({mail: email, password: hash}).toArray(function(err, res) {
 				if (err) throw err;
 				db.close();
 				console.log(JSON.stringify(res));
