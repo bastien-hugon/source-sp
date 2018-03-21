@@ -9,6 +9,7 @@ MongoClient.connect(url, function(err, db) {
 		if (err) throw err;
 		dbo.createCollection("tokens", function(err, res) {
 			if (err) throw err;
+			console.log(crypto.createHash('sha256').update("1234").digest('base64'));
 			var myobj = { mail: "bastien.hugon@epitech.eu", password: crypto.createHash('sha256').update("1234").digest('base64') };
 			dbo.collection("customers").insertOne(myobj, function(err, res) {
 				if (err) throw err;
@@ -27,11 +28,12 @@ io.on('connection', function (socket) {
 			if (err) throw err;
 			var dbo = db.db("simply");
 			var hash = crypto.createHash('sha256').update(password).digest('base64');
+			console.log(hash);
 			dbo.collection("users").findOne({mail: mail, password: hash}, function(err, res) {
 				if (err) throw err;
 				db.close();
 				console.log(res);
-				socket.emit('login', mail);
+				socket.emit('login', res);
 			});
 		});
 	});
