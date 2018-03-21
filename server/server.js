@@ -11,6 +11,7 @@ server.listen(8080, function () {
 
 // Define the static route for all files required by the website
 app.use('/', express.static(__dirname + '/html/'));
+app.use('/assets/', express.static(__dirname + '/html/assets/'));
 
 // Get API Content
 eval(fs.readFileSync('assets/api/api.js')+'');
