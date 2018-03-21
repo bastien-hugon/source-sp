@@ -3,7 +3,6 @@ var express = require('express');
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 var fs = require('fs');
-
 var util = require('util');
 var log_file = fs.createWriteStream(__dirname + '/debug.log', {flags : 'w'});
 var log_stdout = process.stdout;
