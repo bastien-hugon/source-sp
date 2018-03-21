@@ -32,8 +32,9 @@ io.on('connection', function (socket) {
 			dbo.collection("users").find({}, { mail: mail, password: hash }).toArray(function(err, res) {
 				if (err) throw err;
 				db.close();
-				console.log(JSON.stringify(res));
-				socket.emit('login', res);
+				console.log(res.mail);
+				var result = {success: (res) ? (true) : (false), data: res};
+				socket.emit('login', result);
 			});
 		});
 	});
