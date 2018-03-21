@@ -129,6 +129,5 @@ $(document).ready(function(){
 			TOKEN = data;
 			main();
 		}
-	});*/
-	
+	});*/	
 });

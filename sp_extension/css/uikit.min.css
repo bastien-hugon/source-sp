@@ -25,7 +25,7 @@ a:hover {
 
 .uk-link,
 a {
-    color: #F45144;
+    color: #273c75;
     text-decoration: none;
     cursor: pointer
 }
@@ -304,13 +304,13 @@ pre code {
 }
 
 ::-moz-selection {
-    background: #F45144;
+    background: #273c75;
     color: #fff;
     text-shadow: none
 }
 
 ::selection {
-    background: #F45144;
+    background: #273c75;
     color: #fff;
     text-shadow: none
 }
@@ -1088,7 +1088,7 @@ a.uk-link-reset:hover {
     outline: 0;
     background-color: #fff;
     color: #666;
-    border-color: #F45144
+    border-color: #273c75
 }
 
 .uk-input:disabled,
@@ -1236,13 +1236,13 @@ select.uk-form-width-xsmall {
 .uk-checkbox:focus,
 .uk-radio:focus {
     outline: 0;
-    border-color: #F45144
+    border-color: #273c75
 }
 
 .uk-checkbox:checked,
 .uk-checkbox:indeterminate,
 .uk-radio:checked {
-    background-color: #F45144;
+    background-color: #273c75;
     border-color: transparent
 }
 
@@ -1445,14 +1445,14 @@ select.uk-form-width-xsmall {
 }
 
 .uk-button-primary {
-    background-color: #F45144;
+    background-color: #273c75;
     color: #fff;
     border: 1px solid transparent
 }
 
 .uk-button-primary:focus,
 .uk-button-primary:hover {
-    background-color: #bc433a;
+    background-color: #487eb0;
     color: #fff
 }
 
@@ -1560,7 +1560,7 @@ select.uk-form-width-xsmall {
     padding: 0;
     line-height: 1.5;
     background: 0 0;
-    color: #F45144
+    color: #273c75
 }
 
 .uk-button-link:focus,
@@ -1665,7 +1665,7 @@ select.uk-form-width-xsmall {
 }
 
 .uk-section-primary {
-    background: #F45144
+    background: #273c75
 }
 
 .uk-section-secondary {
@@ -2086,7 +2086,7 @@ select.uk-form-width-xsmall {
 }
 
 .uk-tile-primary {
-    background: #F45144
+    background: #273c75
 }
 
 .uk-tile-secondary {
@@ -2191,7 +2191,7 @@ select.uk-form-width-xsmall {
 }
 
 .uk-card-primary {
-    background: #F45144;
+    background: #273c75;
     color: #fff;
     box-shadow: 0 5px 15px rgba(0, 0, 0, .08)
 }
@@ -2201,7 +2201,7 @@ select.uk-form-width-xsmall {
 }
 
 .uk-card-primary.uk-card-hover:hover {
-    background-color: #F45144;
+    background-color: #273c75;
     box-shadow: 0 14px 25px rgba(0, 0, 0, .16)
 }
 
@@ -2452,7 +2452,7 @@ select.uk-form-width-xsmall {
 
 .uk-alert-primary {
     background: #d8eafc;
-    color: #F45144
+    color: #273c75
 }
 
 .uk-alert-success {
@@ -2497,7 +2497,7 @@ select.uk-form-width-xsmall {
     padding: 0 5px;
     border-radius: 500px;
     vertical-align: middle;
-    background: #F45144;
+    background: #273c75;
     color: #fff;
     font-size: .875rem;
     display: -ms-inline-flexbox;
@@ -2521,7 +2521,7 @@ select.uk-form-width-xsmall {
 .uk-label {
     display: inline-block;
     padding: 0 10px;
-    background: #F45144;
+    background: #273c75;
     line-height: 1.5;
     font-size: .875rem;
     color: #fff;
@@ -3361,7 +3361,7 @@ ul.uk-nav-sub {
 }
 
 .uk-subnav-pill>.uk-active>a {
-    background-color: #F45144;
+    background-color: #273c75;
     color: #fff
 }
 
@@ -3500,7 +3500,7 @@ ul.uk-nav-sub {
 
 .uk-tab>.uk-active>a {
     color: #333;
-    border-color: #F45144
+    border-color: #273c75
 }
 
 .uk-tab>.uk-disabled>a {
@@ -4341,7 +4341,7 @@ ul.uk-nav-sub {
 }
 
 .uk-notification-message-primary {
-    color: #F45144
+    color: #273c75
 }
 
 .uk-notification-message-success {
@@ -4436,16 +4436,16 @@ ul.uk-nav-sub {
 }
 
 .uk-progress::-webkit-progress-value {
-    background-color: #F45144;
+    background-color: #273c75;
     transition: width .6s ease
 }
 
 .uk-progress::-moz-progress-bar {
-    background-color: #F45144
+    background-color: #273c75
 }
 
 .uk-progress::-ms-fill {
-    background-color: #F45144;
+    background-color: #273c75;
     transition: width .6s ease;
     border: 0
 }
@@ -5622,7 +5622,7 @@ ul.uk-nav-sub {
 }
 
 .uk-text-primary {
-    color: #F45144!important
+    color: #273c75!important
 }
 
 .uk-text-success {
@@ -5641,12 +5641,12 @@ ul.uk-nav-sub {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     display: inline-block;
-    color: #F45144!important
+    color: #273c75!important
 }
 
 @supports (-webkit-background-clip:text) {
     .uk-text-background {
-        background-color: #F45144
+        background-color: #273c75
     }
 }
 
@@ -5966,7 +5966,7 @@ th.uk-text-break {
 }
 
 .uk-background-primary {
-    background-color: #F45144
+    background-color: #273c75
 }
 
 .uk-background-secondary {
