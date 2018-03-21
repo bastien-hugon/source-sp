@@ -4,14 +4,23 @@ var server = require('http').Server(app);
 var io = require('socket.io')(server);
 var fs = require('fs');
 
-// Launch Express Server on 8080
+var util = require('util');
+var log_file = fs.createWriteStream(__dirname + '/debug.log', {flags : 'w'});
+var log_stdout = process.stdout;
+
+console.log = function(d) {
+    log_file.write(util.format(d) + '\n');
+    log_stdout.write(util.format(d) + '\n');
+};
+
+// Launch Express Servee
 server.listen(8080, function () {
-	console.log('Server running on 8080 on HTTP');
+	console.log('Server running on port 8080');
 });
 
 // Define the static route for all files required by the website
 app.use('/', express.static(__dirname + '/html/'));
-app.use('/assets/', express.static(__dirname + '/html/assets/'));
+//app.use('/assets/', express.static(__dirname + '/html/assets/'));
 
 // Get API Content
 eval(fs.readFileSync('assets/api/api.js')+'');
