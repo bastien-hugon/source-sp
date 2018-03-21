@@ -1,6 +1,4 @@
-var socket = io.connect('http://localhost/');
+var socket = io.connect('https://simply-password.ovh/');
 
 socket.on('news', function (data) {
-	console.log(data);
-	socket.emit('my other event', { my: 'data' });
 });

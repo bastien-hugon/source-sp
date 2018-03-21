@@ -3,9 +3,8 @@ var express = require('express');
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 var fs = require('fs');
-eval(fs.readFileSync('assets/https/https.js')+'');
 
-// Launch Express Server on 4242
+// Launch Express Server on 8080
 server.listen(8080, function () {
 	console.log('Server running on 8080 on HTTP');
 });
