@@ -32,7 +32,7 @@ io.on('connection', function (socket) {
 			dbo.collection("users").find({}, { _id: 0, mail: mail, password: hash }).toArray(function(err, res) {
 				if (err) throw err;
 				db.close();
-				console.log(res);
+				console.log(JSON.stringify(res));
 				socket.emit('login', res);
 			});
 		});
