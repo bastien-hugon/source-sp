@@ -4,6 +4,7 @@ io.on('connection', function (socket) {
     console.log("Connection from: " + ip + ":" + port);
 
     socket.on('login', function(mail, password){
-	socket.emit('login', 'OK');
+	console.log('Try to connect: '+mail+' '+password)
+	socket.emit('login', mail);
     });
 });
