@@ -24,10 +24,12 @@ io.on('connection', function (socket) {
 	var port = socket.handshake.headers["x-real-port"];
 	console.log("Connection from: " + ip + ":" + port);
 	socket.on('login', function(mail, pwd){
+		console.log(pwd);
 		MongoClient.connect(url, function(err, db) {
 			if (err) throw err;
 			var dbo = db.db("simply");
 			var hash = crypto.createHash('sha256').update(pwd).digest('base64');
+			console.log(hash)
 			dbo.collection("users").find({}, { mail: mail, password: hash }).toArray(function(err, res) {
 				if (err) throw err;
 				console.log(res);
