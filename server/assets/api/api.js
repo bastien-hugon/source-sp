@@ -29,8 +29,7 @@ io.on('connection', function (socket) {
 			if (err) throw err;
 			var dbo = db.db("simply");
 			var hash = crypto.createHash('sha256').update(pwd).digest('base64');
-			console.log(hash)
-			dbo.collection("users").find({}, { mail: mail, password: hash }).toArray(function(err, res) {
+			dbo.collection("users").findOne({}, { mail: mail, password: hash }).toArray(function(err, res) {
 				if (err) throw err;
 				console.log(res);
 				var result = {success: (res[0].mail !== undefined) ? (true) : (false), data: res};
