@@ -73,8 +73,9 @@ io.on('connection', function (socket) {
 		MongoClient.connect(url, function(err, db) {
 			if (err) throw err;
 			var dbo = db.db("simply");
-			dbo.collection("users").find({ token }).toArray(function(err, res) {
+			dbo.collection("users").find({ token: token }).toArray(function(err, res) {
 				if (err) throw err;
+				console.log(res[0])
 				var result = (res[0]) ? (true) : (false);
 				db.close();
 				socket.emit('verifToken', result);
