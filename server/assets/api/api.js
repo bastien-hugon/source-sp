@@ -25,7 +25,7 @@ MongoClient.connect(url, function(err, db) {
  * Génération de token
  */
 function generateToken(user, callback) {
-	if (!user[0])
+	if (user[0] === undefined)
 		callback(false);
 	console.log("OUI >> " + JSON.stringify(user[0]));
 	MongoClient.connect(url, function(err, db) {
@@ -59,7 +59,7 @@ io.on('connection', function (socket) {
 			dbo.collection("users").find({ mail: mail, password: hash }).toArray(function(err, res) {
 				if (err) throw err;
 				generateToken(res[0], function(token){
-					var result = {success: (res[0]) ? (true) : (false), data: res[0], token: token};
+					var result = {success: (res[0] !== undefined) ? (true) : (false), data: res[0], token: token};
 					db.close();
 					socket.emit('login', result);
 				});
