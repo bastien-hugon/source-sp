@@ -27,6 +27,7 @@ MongoClient.connect(url, function(err, db) {
 function generateToken(user, callback) {
 	if (!user[0])
 		callback(false);
+	console.log("OUI >> " + JSON.stringify(user[0]));
 	MongoClient.connect(url, function(err, db) {
 		if (err) throw err;
 		var dbo = db.db("simply");
