@@ -4,7 +4,7 @@ var server = require('http').Server(app);
 var io = require('socket.io')(server);
 var fs = require('fs');
 var util = require('util');
-var log_file = fs.createWriteStream(__dirname + '/debug.log', {flags : 'w'});
+var log_file = fs.createWriteStream(__dirname + '/logs/log-[' + Date(Date.now()).toLocaleString() +']', {flags : 'w'});
 var log_stdout = process.stdout;
 
 console.log = function(d) {
