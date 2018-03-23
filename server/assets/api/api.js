@@ -25,9 +25,10 @@ MongoClient.connect(url, function(err, db) {
  * Génération de token
  */
 function generateToken(user, callback) {
-	if (user[0] === undefined)
+	if (user[0] === undefined) {
 		callback(false);
-	return false;
+		return false;
+	}
 	MongoClient.connect(url, function(err, db) {
 		if (err) throw err;
 		var dbo = db.db("simply");
