@@ -25,14 +25,13 @@ MongoClient.connect(url, function(err, db) {
  * Génération de token
  */
 function generateToken(user, callback) {
-	if (user === undefined)
+	if (user[0] === undefined)
 		callback(false);
-	console.log(user);
 	MongoClient.connect(url, function(err, db) {
 		if (err) throw err;
 		var dbo = db.db("simply");
 		var token = crypto.randomBytes(64).toString('hex');
-		dbo.collection("token").insertOne({fk_id_user: user._id, token: token, date_creation: Date.now()}, function(err, res){
+		dbo.collection("token").insertOne({fk_id_user: user[0]._id, token: token, date_creation: Date.now()}, function(err, res){
 			if (err) throw err;
 			callback(token);
 			db.close();
@@ -59,7 +58,7 @@ io.on('connection', function (socket) {
 			dbo.collection("users").find({ mail: mail, password: hash }).toArray(function(err, res) {
 				if (err) throw err;
 				console.log(JSON.stringify(res[0]));
-				generateToken(res[0], function(token){
+				generateToken(res, function(token){
 					var result = {success: (res[0] !== undefined) ? (true) : (false), data: res[0], token: token};
 					db.close();
 					socket.emit('login', result);
