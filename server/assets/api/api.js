@@ -31,7 +31,7 @@ function generateToken(user, callback) {
 		if (err) throw err;
 		var dbo = db.db("simply");
 		var token = crypto.randomBytes(64).toString('hex');
-		dbo.collection("token").insertOne({fk_id_user: user[0], token: token, date_creation: Date.now()}, function(err, res){
+		dbo.collection("token").insertOne({fk_id_user: user[0]._id, token: token, date_creation: Date.now()}, function(err, res){
 			if (err) throw err;
 			callback(token);
 			db.close();
