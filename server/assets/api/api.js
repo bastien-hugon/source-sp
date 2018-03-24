@@ -12,11 +12,15 @@ var url = "mongodb://localhost:27017/";
 MongoClient.connect(url, function(err, db) {
 	if (err) throw err;
 	var dbo = db.db("simply");
-	dbo.createCollection("users", function(err, res) {
-		if (err) throw err;
-		dbo.createCollection("tokens", function(err, res) {
+	dbo.collection("users").remove({}, function(){
+		dbo.collection("tokens").remove({}, function(){
+			dbo.createCollection("users", function(err, res) {
 			if (err) throw err;
-			db.close();
+				dbo.createCollection("tokens", function(err, res) {
+					if (err) throw err;
+					db.close();
+				});
+			});
 		});
 	});
 });
@@ -84,7 +88,7 @@ io.on('connection', function (socket) {
 					db.close();
 					socket.emit('register', {success: false, message: "Compte déjà existant."});
 				}else{
-					dbo.collection("users").insertOne({mail: mail, password: pwd, date_creation: Date.now()}, function(err, res){
+					dbo.collection("users").insertOne({mail: mail, password: hash, date_creation: Date.now()}, function(err, res){
 						if (err) throw err;
 						db.close();
 						socket.emit('register', {success: true, message: "Compte créé avec succès."});
