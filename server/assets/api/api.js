@@ -12,17 +12,18 @@ var url = "mongodb://localhost:27017/";
 MongoClient.connect(url, function(err, db) {
 	if (err) throw err;
 	var dbo = db.db("simply");
+	/*
 	dbo.collection("users").remove({}, function(){
-		dbo.collection("tokens").remove({}, function(){
+		dbo.collection("tokens").remove({}, function(){ */
 			dbo.createCollection("users", function(err, res) {
-			if (err) throw err;
+				if (err) throw err;
 				dbo.createCollection("tokens", function(err, res) {
 					if (err) throw err;
 					db.close();
 				});
 			});
-		});
-	});
+/*		});
+	});*/
 });
 
 /**
