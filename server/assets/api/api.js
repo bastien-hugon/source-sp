@@ -59,12 +59,37 @@ io.on('connection', function (socket) {
 			var hash = crypto.createHash('sha256').update(pwd).digest('base64');
 			dbo.collection("users").find({ mail: mail, password: hash }).toArray(function(err, res) {
 				if (err) throw err;
-				console.log(JSON.stringify(res[0]));
 				generateToken(res, function(token){
 					var result = {success: (res[0] !== undefined) ? (true) : (false), data: res[0], token: token};
 					db.close();
 					socket.emit('login', result);
 				});
+			});
+		});
+	});
+
+	/**
+	 * Enregistrement d'un utilisateur
+	 */
+	socket.on('register', function(mail, pwd){
+		if (mail === undefined || pwd === undefined)
+			return false;
+		MongoClient.connect(url, function(err, db) {
+			if (err) throw err;
+			var dbo = db.db("simply");
+			var hash = crypto.createHash('sha256').update(pwd).digest('base64');
+			dbo.collection("users").find({ mail: mail }).toArray(function(err, res) {
+				if (err) throw err;
+				if (res[0] !== undefined){
+					db.close();
+					socket.emit('register', {success: false, message: "Compte déjà existant."});
+				}else{
+					dbo.collection("users").insertOne({mail: mail, password: pwd, date_creation: Date.now()}, function(err, res){
+						if (err) throw err;
+						db.close();
+						socket.emit('register', {success: true, message: "Compte créé avec succès."});
+					});
+				}
 			});
 		});
 	});
@@ -78,7 +103,6 @@ io.on('connection', function (socket) {
 			var dbo = db.db("simply");
 			dbo.collection("token").find({ token: token }).toArray(function(err, res) {
 				if (err) throw err;
-				console.log(JSON.stringify(res));
 				var result = (res[0]) ? (true) : (false);
 				db.close();
 				socket.emit('verifToken', result);
