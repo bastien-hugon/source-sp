@@ -15,16 +15,39 @@ MongoClient.connect(url, function(err, db) {
 	/*
 	dbo.collection("users").remove({}, function(){
 		dbo.collection("tokens").remove({}, function(){ */
-			dbo.createCollection("users", function(err, res) {
+			dbo.createCollection("users_password", function(err, res) {
 				if (err) throw err;
-				dbo.createCollection("tokens", function(err, res) {
+				dbo.createCollection("users", function(err, res) {
 					if (err) throw err;
-					db.close();
+					dbo.createCollection("tokens", function(err, res) {
+						if (err) throw err;
+						db.close();
+					});
 				});
 			});
-/*		});
+		/*		});
 	});*/
 });
+
+/**
+ * Chiffre le mdp
+ */
+function encrypt(password, hash){
+	var cipher = crypto.createCipher('aes-256-ctr', hash)
+	var crypted = cipher.update(password,'utf8','hex')
+	crypted += cipher.final('hex');
+	return crypted;
+}
+
+/**
+ * Déchiffre le mdp
+ */
+function decrypt(password, hash){
+	var decipher = crypto.createDecipher('aes-256-ctr', hash)
+	var dec = decipher.update(password,'hex','utf8')
+	dec += decipher.final('utf8');
+	return dec;
+}
 
 /**
  * Génération de token
@@ -111,6 +134,43 @@ io.on('connection', function (socket) {
 				var result = (res[0]) ? (true) : (false);
 				db.close();
 				socket.emit('verifToken', result);
+			});
+		});
+	});
+
+	/**
+	 * Récupère l'identifiant à partir du Token et de l'url
+	 */
+	socket.on('getID', function(token, dir){
+		MongoClient.connect(url, function(err, db) {
+			if (err) throw err;
+			var dbo = db.db("simply");
+			dbo.collection("token").find({ token: token }).toArray(function(err, res) { // Récupération de l'id relié au token
+				if (err) throw err;
+				if (res[0] === undefined) {
+					socket.emit('getID', false);
+					db.close();
+				}else {
+					dbo.collection("token").find({ fk_id_user: res[0].fk_id_user }).toArray(function(err, res) { // Récupération du premier token trouvé
+						if (err) throw err;
+						if (res[0] === undefined) {
+							socket.emit('getID', false);
+							db.close();
+						} else {
+							var key = res[0].token;
+							dbo.collection("users_password").find({ fk_id_user: res[0].fk_id_user, url: dir }).toArray(function(err, res) { // Récupération des id dans la bd
+								if (err) throw err;
+								if (res[0] === undefined) {
+									socket.emit('getID', false);
+									db.close();
+								}else {
+									res[0].password = decrypt(res[0].password, key);
+									socket.emit('getID', res[0]);
+								}
+							});
+						}
+					});
+				}
 			});
 		});
 	});
