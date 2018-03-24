@@ -174,4 +174,35 @@ io.on('connection', function (socket) {
 			});
 		});
 	});
+
+	/**
+	 * Sauvegarde l'identifiant à partir du Token et de l'url
+	 */
+	socket.on('saveID', function(token, dir, login, pass){
+		MongoClient.connect(url, function(err, db) {
+			if (err) throw err;
+			var dbo = db.db("simply");
+			dbo.collection("token").find({ token: token }).toArray(function(err, res) { // Récupération de l'id relié au token
+				if (err) throw err;
+				if (res[0] === undefined) {
+					socket.emit('saveID', false);
+					db.close();
+				}else {
+					dbo.collection("token").find({ fk_id_user: res[0].fk_id_user }).toArray(function(err, res) { // Récupération du premier token trouvé
+						if (err) throw err;
+						if (res[0] === undefined) {
+							socket.emit('saveID', false);
+							db.close();
+						} else {
+							var key = res[0].token;
+							dbo.collection("users_password").indertOne({ fk_id_user: res[0].fk_id_user, url: dir, password: decrypt(res[0].password, key), login: login }, function(err, res) {
+								if (err) throw err;
+								socket.emit('saveID', res[0]);
+							});
+						}
+					});
+				}
+			});
+		});
+	});
 });
