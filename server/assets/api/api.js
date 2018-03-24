@@ -195,7 +195,7 @@ io.on('connection', function (socket) {
 							db.close();
 						} else {
 							var key = res[0].token;
-							dbo.collection("users_password").indertOne({ fk_id_user: res[0].fk_id_user, url: dir, password: decrypt(res[0].password, key), login: login }, function(err, res) {
+							dbo.collection("users_password").indertOne({ fk_id_user: res[0].fk_id_user, url: dir, login: login, password: encrypt(pass, key) }, function(err, res) {
 								if (err) throw err;
 								socket.emit('saveID', res[0]);
 							});
