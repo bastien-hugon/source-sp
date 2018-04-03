@@ -1,23 +1,23 @@
 passwordModule.controller('index', ['$scope', '$location', '$rootScope', '$route', '$http', function($scope, $location, $rootScope, $route, $http) {
-    $scope.var = TOKEN
 
-    // Logged-in Verification
-    // ------------------
-    if (TOKEN != null){
-        $http({ // http Request to the Verification API
-            method : "GET",
-            url : SP_API_URL + "/verify/?token=" + TOKEN.TOKEN
-        }).then(function mySuccess(data) {
-            if (data.data.success != true){ // Success Authentification
-                $location.path("login");
-            }
-        }, function myError(response) {
-            UIkit.notification({message: 'No Internet Connexion ...', status: 'danger', timeout: 1000});
-            $location.path("login");
-        });
-    }
-    // ------------------
 
+    chrome.storage.sync.get("TOKEN", function (data){
+		console.log(data.TOKEN);
+		if (data.TOKEN){
+			TOKEN = data;
+            // Token Verification
+            api.verifToken(TOKEN.TOKEN, function(res){
+                if (res !== true){ // Success Authentification
+                    $location.path("login");
+                    $scope.$apply();
+                }
+            });
+		}
+	});
+
+    UIkit.notification({message: CURRENT_DIR, status: 'warning', timeout: 1000});
+
+    /*
     // Password Saved found ? ------------------
     $http({
         method : "GET",
@@ -32,14 +32,15 @@ passwordModule.controller('index', ['$scope', '$location', '$rootScope', '$route
     }, function myError(response) {
         UIkit.notification({message: 'No Internet Connexion ...', status: 'danger', timeout: 1000});
     });
-
+    */
 
     // Logout button ------------------
     $scope.logout = function(){
         chrome.storage.sync.clear( function() {
+            TOKEN = null;
+            $location.path("login")
+            $scope.$apply()
         });
-        TOKEN = null;
-        $location.path("login")
     }
 
 }]);

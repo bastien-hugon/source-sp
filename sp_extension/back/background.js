@@ -20,16 +20,17 @@ chrome.tabs.onUpdated.addListener( function (tabId, changeInfo, tab) {
           }
         })
       })
+      var scripts = [
+        'js/socket.io.js',
+        'js/jquery.js',
+        'main.js',
+        'js/apiSimply.js'
+      ];
+      scripts.forEach(function(script) {
+        chrome.tabs.executeScript(null, { file: script }, function(resp) {
 
-      chrome.tabs.executeScript(null, {
-        file: "main.js"
-      }, function() {
-        // If you try and inject into an extensions page or the webstore/NTP you'll get an error
-        if (chrome.runtime.lastError) {
-          console.log('That\'s not really an error ...')
-        }
+        });
       });
-
       //window.open("../popup.html", "extension_popup", "width=300,height=400,status=no,scrollbars=yes,resizable=no");
 
     }

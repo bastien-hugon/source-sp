@@ -2,21 +2,20 @@ passwordModule.controller('register', ['$scope', '$location', '$rootScope', '$ro
 
     $scope.loading = false;
 
-    // Logged-in Verification
-    // ------------------
-    if (TOKEN != null){
-        $http({ // http Request to the Verification API
-            method : "GET",
-            url : SP_API_URL + "/verify/?token=" + TOKEN.TOKEN
-        }).then(function mySuccess(data) {
-            if (data.data.success == true){ // Success Authentification
-                $location.path("index");
-            }
-        }, function myError(response) {
-            UIkit.notification({message: 'No Internet Connexion ...', status: 'danger', timeout: 1000});
-        });
-    }
-    // ------------------
+    
+	chrome.storage.sync.get("TOKEN", function (data){
+		console.log(data.TOKEN);
+		if (data.TOKEN){
+			TOKEN = data;
+            // Token Verification
+            api.verifToken(TOKEN.TOKEN, function(res){
+                if (res === true){ // Success Authentification
+                    $location.path("index");
+                    $scope.$apply();
+                }
+            });
+		}
+	});
 
     var regex_mail = /^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/;
 
@@ -35,21 +34,16 @@ passwordModule.controller('register', ['$scope', '$location', '$rootScope', '$ro
             UIkit.notification({message: "Mot de passe trop court !", status: 'warning', timeout: 1000});
             $scope.loading = false;
         }else{
-            $http({ // http Request to the API
-                method : "GET",
-                url : SP_API_URL + "/register/?mail=" + mail + "&pass=" + password
-            }).then(function mySuccess(data) {
-                $scope.resp = data.data;
-                if (data.data.success == true){ // Success Authentification
+            api.register(mail, password, function(data){
+                if (data.success == true){ // Success Authentification
                     UIkit.notification({message: "<span uk-icon='icon: check'></span>Inscription réussie !", status: 'success', timeout: 1000});
                     UIkit.notification({message: "<span uk-icon='icon: info'></span> Connectez-vous maintenant !", status: 'success', timeout: 4000});
                     $location.path("login");
+                    $scope.$apply();
                 }else{ // Failed Inscription
-                    UIkit.notification({message: data.data.message, status: 'danger', timeout: 1000});
+                    UIkit.notification({message: data.message, status: 'danger', timeout: 1000});
+                    $scope.$apply();
                 }
-                $scope.loading = false;
-            }, function myError(response) {
-                UIkit.notification({message: 'Inscription impossible ...', status: 'danger', timeout: 1000});
                 $scope.loading = false;
             });
         }
