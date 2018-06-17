@@ -217,9 +217,9 @@ io.on('connection', function (socket) {
 					socket.emit('getShared', false);
 					db.close();
 				}else {
-					console.log(res[0].fk_id_user);
 					dbo.collection("users").find({ _user: res[0].fk_id_user }).toArray(function(err, res) { // Récupération du premier token trouvé
 						if (err) throw err;
+						console.log(JSON.stringify(res[0]));
 						if (res[0] === undefined) {
 							socket.emit('getShared', false);
 							db.close();
