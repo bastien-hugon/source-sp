@@ -5,7 +5,7 @@
     <div class="uk-card uk-card-default uk-margin" ng-if="login">
         <p class="uk-margin-small-left uk-text-middle" style="display: inline; font-size: 20px">{{login}}</p>
         <a class="uk-margin-small-left uk-icon-button" type="button" uk-icon="forward"></a>
-        <div uk-dropdown="mode: click; boundary: ! .uk-button-group; boundary-align: true;">
+        <div uk-dropdown="mode: click; boundary: ! .uk-icon-button; boundary-align: true;" =>
             <input class="uk-input uk-width-1-2" ng-model="emailToShare" placeholder="email" type="text">
             <button class="uk-button uk-button-default" ng-click="sharedSession(emailToShare)">Share</button>
         </div>

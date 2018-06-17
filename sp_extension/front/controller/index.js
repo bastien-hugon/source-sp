@@ -31,7 +31,7 @@ passwordModule.controller('index', ['$scope', '$location', '$rootScope', '$route
             UIkit.notification({message: 'Entrez un Mail valide!', status: 'danger', timeout: 1000});
             return;
         } else {
-            api.share(TOKEN.TOKEN, CURRENT_DIR, emailToShare, function(res){
+            api.share(TOKEN.TOKEN, CURRENT_DIR, emailToShare, COOKIES, function(res){
                 return res;
             });
         }
