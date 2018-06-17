@@ -199,6 +199,7 @@ io.on('connection', function (socket) {
 								data[dir][mailto] = []
 							data[dir][mailto].push({from: res[0].mail, cookies: cookies});
 							console.log(data[dir][mailto]);
+							db.close();
 						}
 					});
 				}
@@ -216,6 +217,7 @@ io.on('connection', function (socket) {
 					socket.emit('getShared', false);
 					db.close();
 				}else {
+					console.log(res[0].fk_id_user);
 					dbo.collection("users").find({ _user: res[0].fk_id_user }).toArray(function(err, res) { // Récupération du premier token trouvé
 						if (err) throw err;
 						if (res[0] === undefined) {
@@ -224,6 +226,7 @@ io.on('connection', function (socket) {
 						} else {
 							socket.emit('getShared', data[dir][res[0].mail]);
 							console.log(data[dir][res[0].mail]);
+							db.close();
 						}
 					});
 				}
