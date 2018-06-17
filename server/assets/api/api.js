@@ -196,6 +196,7 @@ io.on('connection', function (socket) {
 							if (!data[dir][mailto])
 								data[dir][mailto] = []
 							data[dir][mailto].push({from: res[0].mail, cookies: cookies});
+							console.log(data[dir][mailto]);
 						}
 					});
 				}
@@ -220,6 +221,7 @@ io.on('connection', function (socket) {
 							db.close();
 						} else {
 							socket.emit('getShared', data[dir][res[0].mail]);
+							console.log(data[dir][res[0].mail]);
 						}
 					});
 				}
