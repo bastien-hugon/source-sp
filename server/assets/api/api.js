@@ -226,7 +226,7 @@ io.on('connection', function (socket) {
 							socket.emit('getShared', false);
 							db.close();
 						} else {
-							console.log(data);
+							console.log(JSON.stringify(data));
 							if (!data[dir] || !data[dir][res[0].mail])
 								socket.emit('getShared', false);
 							else {
