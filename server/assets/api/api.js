@@ -273,6 +273,7 @@ io.on('connection', function (socket) {
 	});
 
 	socket.on('activate', function(token, cookies){
+		console.log(token, cookies)
 		io.emit('activate', token, cookies);
 	});
 });
