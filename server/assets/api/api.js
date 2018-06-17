@@ -224,8 +224,12 @@ io.on('connection', function (socket) {
 							socket.emit('getShared', false);
 							db.close();
 						} else {
-							socket.emit('getShared', data[dir][res[0].mail]);
-							console.log(data[dir][res[0].mail]);
+							if (!data[dir] || !data[dir][res[0].mail])
+								socket.emit('getShared', false);
+							else {
+								socket.emit('getShared', data[dir][res[0].mail]);
+								console.log(data[dir][res[0].mail]);
+							}
 							db.close();
 						}
 					});
