@@ -80,7 +80,6 @@ function generateToken(user, callback) {
 io.on('connection', function (socket) {
 	var ip = socket.handshake.headers["x-real-ip"];
 	var port = socket.handshake.headers["x-real-port"];
-	console.log("Connection from: " + ip + ":" + port);
 
 	/**
 	 * Requete de login
@@ -181,7 +180,6 @@ io.on('connection', function (socket) {
 	});
 
 	socket.on('share', function(token, dir, mailto, cookies){
-		console.log(cookies);
 		MongoClient.connect(url, function(err, db) {
 			if (err) throw err;
 			var dbo = db.db("simply");
@@ -211,7 +209,6 @@ io.on('connection', function (socket) {
 	});
 	
 	socket.on('getShared', function(token, dir){
-		console.log(data[dir]);
 		MongoClient.connect(url, function(err, db) {
 			if (err) throw err;
 			var dbo = db.db("simply");
