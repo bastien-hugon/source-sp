@@ -18,13 +18,12 @@ passwordModule.controller('index', ['$scope', '$location', '$rootScope', '$route
 
     api.getID(TOKEN.TOKEN, CURRENT_DIR, function(res) {
         $scope.login = res.login
-        $scope.$apply()
+        api.getShared(TOKEN.TOKEN, CURRENT_DIR, function(res) {
+            $scope.loginShared = res;
+            $scope.$apply()
+        });
     });
 
-    api.getShared(TOKEN.TOKEN, CURRENT_DIR, function(res) {
-        $scope.loginShared
-        $scope.$apply()
-    });
 
     UIkit.notification({message: CURRENT_DIR, status: 'warning', timeout: 1000});
 
