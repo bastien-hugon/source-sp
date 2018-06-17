@@ -190,7 +190,7 @@ io.on('connection', function (socket) {
 					socket.emit('share', false);
 					db.close();
 				}else {
-					dbo.collection("users").find({ _user: res[0].fk_id_user }).toArray(function(err, res) { // Récupération du premier token trouvé
+					dbo.collection("users").find({ _id: res[0].fk_id_user }).toArray(function(err, res) { // Récupération du premier token trouvé
 						if (err) throw err;
 						if (res[0] === undefined) {
 							socket.emit('share', false);
