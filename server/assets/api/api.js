@@ -230,7 +230,7 @@ io.on('connection', function (socket) {
 							if (!data[dir] || !data[dir][res[0].mail])
 								socket.emit('getShared', false);
 							else {
-								console.log(data[dir][res[0].mail]);
+								//console.log(data[dir][res[0].mail]);
 								socket.emit('getShared', data[dir][res[0].mail]);
 							}
 							db.close();
