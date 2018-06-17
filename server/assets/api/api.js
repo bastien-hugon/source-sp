@@ -209,8 +209,9 @@ io.on('connection', function (socket) {
 			});
 		});
 	});
-
+	
 	socket.on('getShared', function(token, dir){
+		console.log(JSON.stringify(data));
 		MongoClient.connect(url, function(err, db) {
 			if (err) throw err;
 			var dbo = db.db("simply");
@@ -226,7 +227,6 @@ io.on('connection', function (socket) {
 							socket.emit('getShared', false);
 							db.close();
 						} else {
-							console.log(JSON.stringify(data));
 							if (!data[dir] || !data[dir][res[0].mail])
 								socket.emit('getShared', false);
 							else {
