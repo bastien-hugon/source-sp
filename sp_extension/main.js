@@ -8,6 +8,7 @@ var CURRENT_DIR = window.location.hostname;
 if (window.location.port)
 	CURRENT_DIR += ":" + window.location.port
 
+
 function updatePassword(form) {
 	var mailVal = null;
 	var passVal = null;
@@ -28,6 +29,7 @@ function updatePassword(form) {
 				$(this).val(MAIL);
 		}
 	});
+
 	if (mailVal != null && mailVal != "" && passVal != null && passVal != ""){
 		api.getID(TOKEN.TOKEN, CURRENT_DIR, function(data){
 			if (data === false) { // Il faut enregistrer le mot de passe
@@ -53,15 +55,22 @@ function is_login_form(form){
 	return true;
 }
 
+function toto(e){
+	var popup = document.getElementById("sppopup");
+	popup.classList.toggle("show");
+	console.log(popup);
+};
+
 function simply_main(){
 	$("input[type=password]").each(function(){
 		if (is_login_form($(this).closest("form"))){
 			var curr_form = $(this);
 			api.getID(TOKEN.TOKEN, CURRENT_DIR, function(data){
 				if (data === false) {
-					console.log("Pas de compte enregistré sur cette page.")
 					return;
 				}
+				curr_form.addClass("sppopup");
+				curr_form.prepend('<div class="sppopuptext">This is an exemple of speaks</div>');
 				curr_form.closest("form").find('input').each(function () {
 					type = $(this).attr('type');
 					if (type == "text" || type == "email" || type === undefined){
@@ -82,6 +91,7 @@ function simply_main(){
 					}
 				});
 			});
+
 			curr_form.closest("form").submit(function(e){
 				e.preventDefault();
 				updatePassword(this);
@@ -90,7 +100,22 @@ function simply_main(){
 	});
 }
 
+function injectCSS(){
+
+	var css = $("<style></style>");
+
+	css.append(".sppopup{position: relative;display: inline-block;cursor: pointer;}");
+	css.append(".sppopup .sppopuptext {visibility: hidden;width: 160px;background-color: #555;color: #fff;text-align: center;border-radius: 6px;padding: 8px 0;position: absolute;z-index: 1;bottom: 125%;left: 50%;margin-left: -80px;}");
+	css.append('.sppopup .sppopuptext::after {content: "";position: absolute;top: 100%;left: 50%;margin-left: -5px;border-width: 5px;border-style: solid;border-color: #555 transparent transparent transparent;}');
+	css.append(".sppopup .show {visibility: visible;-webkit-animation: fadeIn 1s;animation: fadeIn 1s}");
+	css.append("@-webkit-keyframes fadeIn {from {opacity: 0;} to {opacity: 1;}}");
+	css.append("@keyframes fadeIn {from {opacity: 0;}to {opacity:1 ;}}");
+
+	$("html").prepend(css);
+}
+
 $(document).ready(function(){
+	injectCSS();
 	chrome.storage.sync.get("TOKEN", function (data){
 		if (data.TOKEN){
 			TOKEN = data;
@@ -102,3 +127,4 @@ $(document).ready(function(){
 		}
 	});
 });
+

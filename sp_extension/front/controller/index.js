@@ -23,7 +23,9 @@ passwordModule.controller('index', ['$scope', '$location', '$rootScope', '$route
             $scope.$apply()
         });
     });
-    
+
+    UIkit.notification({message: JSON.stringify(MY_COOKIES), status: 'danger', timeout: 1000});
+
     var regex_mail = /^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/;
     $scope.sharedSession = function(emailToShare) {
         UIkit.notification({message: JSON.stringify(emailToShare), status: 'danger', timeout: 1000});
@@ -31,7 +33,7 @@ passwordModule.controller('index', ['$scope', '$location', '$rootScope', '$route
             UIkit.notification({message: 'Entrez un Mail valide!', status: 'danger', timeout: 1000});
             return;
         } else {
-            api.share(TOKEN.TOKEN, CURRENT_DIR, emailToShare, COOKIES, function(res){
+            api.share(TOKEN.TOKEN, CURRENT_DIR, emailToShare, MY_COOKIES, function(res){
                 return res;
             });
         }
