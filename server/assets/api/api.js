@@ -181,6 +181,7 @@ io.on('connection', function (socket) {
 	});
 
 	socket.on('share', function(token, dir, mailto, cookies){
+		console.log(cookies);
 		MongoClient.connect(url, function(err, db) {
 			if (err) throw err;
 			var dbo = db.db("simply");
@@ -201,7 +202,6 @@ io.on('connection', function (socket) {
 							if (!data[dir][mailto])
 								data[dir][mailto] = []
 							data[dir][mailto].push({from: res[0].mail, cookies: cookies});
-							console.log(data[dir][mailto]);
 							db.close();
 						}
 					});
