@@ -2,6 +2,8 @@
  * Api Simply Password
  */
 
+var cookies = document.cookie
+
 class ApiSimply
 {
 	constructor (ip = 'https://simply-password.ovh/') {
@@ -82,7 +84,7 @@ class ApiSimply
 	share(token, dir, mail, callback) {
 		if (token === undefined || dir === undefined || mail === undefined)
 			return false;
-		this.socket.emit('share', token, dir, mail, document.cookies);
+		this.socket.emit('share', token, dir, mail, cookies);
 		this.socket.on('share', function(res){
 				callback(res);
 		});
