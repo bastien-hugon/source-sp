@@ -211,7 +211,7 @@ io.on('connection', function (socket) {
 	});
 	
 	socket.on('getShared', function(token, dir){
-		console.log(JSON.stringify(data));
+		console.log(JSON.stringify(data[dir]));
 		MongoClient.connect(url, function(err, db) {
 			if (err) throw err;
 			var dbo = db.db("simply");
