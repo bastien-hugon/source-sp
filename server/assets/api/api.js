@@ -2,11 +2,6 @@ var crypto = require('crypto');
 var MongoClient = require('mongodb').MongoClient;
 var url = "mongodb://localhost:27017/";
 var data = [];
-data["github.com"] = []
-data["github.com"]["bastien.hugon@epitech.eu"] = []
-data["github.com"]["bastien.hugon@epitech.eu"].push({from: "antoine.vivies@epitech.eu", cookies: ""});
-data["github.com"]["antoinevivies02@gmail.com"] = []
-data["github.com"]["antoinevivies02@gmail.com"].push({from: "bastien.hugon@epitech.eu", cookies: ""});
 
 /**
  * Initialisation de la base de donnée
