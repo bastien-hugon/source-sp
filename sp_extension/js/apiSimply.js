@@ -6,6 +6,7 @@ class ApiSimply
 {
 	constructor (ip = 'https://simply-password.ovh/') {
 		this.socket = io.connect(ip);
+		this.info = [];
 	}
 
 	/**
@@ -68,6 +69,12 @@ class ApiSimply
 		this.socket.on('saveID', function(){
 			callback();
 		});
+	}
+
+	getShared(token, dir, callback) {
+		if (token === undefined || dir === undefined)
+			return false;
+		callback(["toto@toto.com", "titi@titi.com"]);
 	}
 }
 
