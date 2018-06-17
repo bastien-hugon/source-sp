@@ -4,17 +4,17 @@
     <h3 style="margin-top: 0!important">Mon Compte</h3>
     <div class="uk-card uk-card-default uk-margin" ng-if="login">
         <p class="uk-margin-small-left uk-text-middle" style="display: inline; font-size: 20px">{{login}}</p>
-        <a class="uk-margin-small-left uk-icon-button" type="button" uk-icon="forward"></a>
-        <div uk-dropdown="mode: click; boundary: ! .uk-icon-button; boundary-align: true;" =>
-            <input class="uk-input uk-width-1-2" ng-model="emailToShare" placeholder="email" type="text">
-            <button class="uk-button uk-button-default" ng-click="sharedSession(emailToShare)">Share</button>
+        <a uk-toggle="target: #modalShare" class="uk-margin-small-left uk-icon-button" type="button" uk-icon="forward"></a>
+        <div id="modalShare" uk-modal>
+            <button class="uk-modal-close-default" type="button" uk-close></button>
+            <input class="uk-input uk-width-1-2 uk-position-center uk-margin-bottom" ng-model="emailToShare" placeholder="email" type="text" style="top: 40%">
+            <button class="uk-button uk-button-danger uk-margin-top uk-position-center" ng-click="sharedSession(emailToShare)">Share</button>
         </div>
     </div>
     <div class="uk-card uk-card-default uk-margin" ng-if="!login">
         <p class="uk-margin-small-left uk-text-middle" style="display: inline; font-size: 20px">Aucun compte pour ce site</p>
     </div>
     <h3>Comptes partages</h3>
-    <!-- Add foreach on all websites account-->
     <div class="uk-card uk-card-success uk-margin" ng-if="loginShared" ng-click="getActiveSession($index)" ng-repeat="mail in loginShared track by $index" style="cursor: pointer;">
             <p class="uk-margin-small-left uk-text-middle" style="display: inline; font-size: 20px">{{mail.from}}</p>
             <a href="" class="uk-margin-small-left uk-icon-button" uk-icon="trash"></a>

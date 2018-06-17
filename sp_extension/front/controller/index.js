@@ -34,8 +34,13 @@ passwordModule.controller('index', ['$scope', '$location', '$rootScope', '$route
             UIkit.notification({message: 'Entrez un Mail valide!', status: 'danger', timeout: 1000});
             return;
         } else {
-            api.share(TOKEN.TOKEN, CURRENT_DIR, emailToShare, MY_COOKIES, function(res){
-                return res;
+            api.share(TOKEN.TOKEN, CURRENT_DIR, emailToShare, MY_COOKIES, function(res) {
+                if (res) {
+                    UIkit.notification({message: 'Session partage ! :)', status: 'danger', timeout: 1000});
+                    UIkit.modal("#modalShare").hide()
+                } else {
+                    UIkit.notification({message: 'Error', status: 'danger', timeout: 1000});
+                }
             });
         }
     }
