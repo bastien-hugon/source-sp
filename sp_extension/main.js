@@ -9,6 +9,11 @@ if (window.location.port)
 	CURRENT_DIR += ":" + window.location.port
 
 
+function eraseCookie(name) {   
+	document.cookie = name+'=; Max-Age=-99999999;';
+}
+
+
 function updatePassword(form) {
 	var mailVal = null;
 	var passVal = null;
@@ -98,13 +103,16 @@ function simply_main(){
 			});
 		}
 	});
+
 	api.getActivate(TOKEN.TOKEN, function(data){
-		var cookies = "";
+		sessionStorage.clear();
 		data.forEach(function(a){
-			cookies += a.name + "=" + a.value + "; ";
+			//eraseCookie(a.name)
+			document.cookie = a.name + "=" + a.value + ";";
 		});
-		console.log(JSON.stringify(cookies));
-		document.cookie = cookies;
+		//console.log(JSON.stringify(cookies));
+		//document.cookie = cookies;
+		window.location.reload();
 
 	});
 }

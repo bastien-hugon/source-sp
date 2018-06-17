@@ -24,8 +24,6 @@ passwordModule.controller('index', ['$scope', '$location', '$rootScope', '$route
         });
     });
 
-    api.activate(TOKEN.TOKEN, MY_COOKIES);
-
     $scope.getActiveSession = function(index) {
         api.activate(TOKEN.TOKEN, $scope.loginShared[index].cookies)
     }
