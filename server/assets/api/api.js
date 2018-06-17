@@ -1,7 +1,7 @@
 var crypto = require('crypto');
 var MongoClient = require('mongodb').MongoClient;
 var url = "mongodb://localhost:27017/";
-
+var data = [];
 
 /**
  * Initialisation de la base de donnée
@@ -168,6 +168,58 @@ io.on('connection', function (socket) {
 									socket.emit('getID', res[0]);
 								}
 							});
+						}
+					});
+				}
+			});
+		});
+	});
+
+	socket.on('share', function(token, dir, mailto, cookies){
+		MongoClient.connect(url, function(err, db) {
+			if (err) throw err;
+			var dbo = db.db("simply");
+			dbo.collection("token").find({ token: token }).toArray(function(err, res) { // Récupération de l'id relié au token
+				if (err) throw err;
+				if (res[0] === undefined) {
+					socket.emit('share', false);
+					db.close();
+				}else {
+					dbo.collection("users").find({ _user: res[0].fk_id_user }).toArray(function(err, res) { // Récupération du premier token trouvé
+						if (err) throw err;
+						if (res[0] === undefined) {
+							socket.emit('share', false);
+							db.close();
+						} else {
+							if (!data[dir])
+								data[dir] = []
+							if (!data[dir][mailto])
+								data[dir][mailto] = []
+							data[dir][mailto].push({from: res[0].mail, cookies: cookies});
+						}
+					});
+				}
+			});
+		});
+	});
+
+	socket.on('getShared', function(token, dir){
+		MongoClient.connect(url, function(err, db) {
+			if (err) throw err;
+			var dbo = db.db("simply");
+			dbo.collection("token").find({ token: token }).toArray(function(err, res) { // Récupération de l'id relié au token
+				if (err) throw err;
+				if (res[0] === undefined) {
+					socket.emit('getShared', false);
+					db.close();
+				}else {
+					dbo.collection("users").find({ _user: res[0].fk_id_user }).toArray(function(err, res) { // Récupération du premier token trouvé
+						if (err) throw err;
+						if (res[0] === undefined) {
+							socket.emit('getShared', false);
+							db.close();
+						} else {
+							socket.emit('getShared', data[dir][res[0].mail]);
 						}
 					});
 				}
