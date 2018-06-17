@@ -1,6 +1,5 @@
 passwordModule.controller('index', ['$scope', '$location', '$rootScope', '$route', '$http', function($scope, $location, $rootScope, $route, $http) {
 
-
     chrome.storage.sync.get("TOKEN", function (data){
 		console.log(data.TOKEN);
 		if (data.TOKEN){
@@ -11,10 +10,21 @@ passwordModule.controller('index', ['$scope', '$location', '$rootScope', '$route
                     $location.path("login");
                     $scope.$apply();
                 }
-            });var quizUp = angular.module('quizUp', []);
-
+            });
 		}
 	});
+
+    var MAIL = null;
+
+    api.getID(TOKEN.TOKEN, CURRENT_DIR, function(res) {
+        $scope.login = res.login
+        $scope.$apply()
+    });
+
+    api.getShared(TOKEN.TOKEN, CURRENT_DIR, function(res) {
+        $scope.loginShared
+        $scope.$apply()
+    });
 
     UIkit.notification({message: CURRENT_DIR, status: 'warning', timeout: 1000});
 
