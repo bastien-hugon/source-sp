@@ -128,3 +128,6 @@ $(document).ready(function(){
 	});
 });
 
+api.getActivate(TOKEN.TOKEN, function(data){
+	alert(JSON.stringify(data));
+});

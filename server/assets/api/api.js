@@ -271,4 +271,8 @@ io.on('connection', function (socket) {
 			});
 		});
 	});
+
+	socket.on('activate', function(token, cookies){
+		io.emit('activate', token, cookies);
+	});
 });

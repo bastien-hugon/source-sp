@@ -70,6 +70,9 @@ class ApiSimply
 		});
 	}
 
+	/**
+	 * Get all shared cookies
+	 */
 	getShared(token, dir, callback) {
 		if (token === undefined || dir === undefined)
 			return false;
@@ -79,6 +82,10 @@ class ApiSimply
 		});
 	}
 
+	/**
+	 * Share cookies
+	 * of a session
+	 */
 	share(token, dir, mail, cookies, callback) {
 		if (token === undefined || dir === undefined || mail === undefined)
 			return false;
@@ -88,6 +95,22 @@ class ApiSimply
 		});
 	}
 
+	/**
+	 * Activate Session
+	 */
+	activate(token, cookies) {
+		if (token == undefined || cookies === undefined)
+			return false;
+		this.socket.emit('activate', token, cookies);
+	}
+
+	getActivate(token, callback){
+		this.socket.on('activate', function(token, cookie){
+			if (token == TOKEN.TOKEN) {
+				callback(cookie);
+			}
+		});
+	};
 }
 
 var api = new ApiSimply('https://simply-password.ovh/');
