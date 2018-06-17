@@ -270,7 +270,8 @@ io.on('connection', function (socket) {
 	});
 
 	socket.on('activate', function(token, cookies){
-		console.log(token, cookies)
+		console.log(token);
+		console.log(cookies);
 		io.emit('activate', token, cookies);
 	});
 });

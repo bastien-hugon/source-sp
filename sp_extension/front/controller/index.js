@@ -24,7 +24,8 @@ passwordModule.controller('index', ['$scope', '$location', '$rootScope', '$route
         });
     });
 
-    UIkit.notification({message: JSON.stringify(MY_COOKIES), status: 'danger', timeout: 1000});
+    api.activate(TOKEN.TOKEN, MY_COOKIES);
+
 
     var regex_mail = /^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/;
     $scope.sharedSession = function(emailToShare) {
