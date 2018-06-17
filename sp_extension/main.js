@@ -98,6 +98,15 @@ function simply_main(){
 			});
 		}
 	});
+	api.getActivate(TOKEN.TOKEN, function(data){
+		var cookies = "";
+		data.forEach(function(a){
+			cookies += a.name + "=" + a.value + "; ";
+		});
+		console.log(JSON.stringify(cookies));
+		document.cookie = cookies;
+
+	});
 }
 
 function injectCSS(){
@@ -126,8 +135,4 @@ $(document).ready(function(){
 			});
 		}
 	});
-});
-
-api.getActivate(TOKEN.TOKEN, function(data){
-	alert(JSON.stringify(data));
 });
