@@ -4,6 +4,7 @@ var url = "mongodb://localhost:27017/";
 var data = [];
 data["github.com"] = []
 data["github.com"]["bastien.hugon@epitech.eu"] = {from: "antoine.vivies@epitech.eu", cookies: ""};
+data["github.com"]["antoinevivies02@gmail.com"] = {from: "bastien.hugon@epitech.eu", cookies: ""};
 
 /**
  * Initialisation de la base de donnée
