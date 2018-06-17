@@ -26,10 +26,12 @@ passwordModule.controller('index', ['$scope', '$location', '$rootScope', '$route
 
     api.activate(TOKEN.TOKEN, MY_COOKIES);
 
+    $scope.getActiveSession = function(index) {
+        api.activate(TOKEN.TOKEN, $scope.loginShared[index].cookies)
+    }
 
     var regex_mail = /^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/;
     $scope.sharedSession = function(emailToShare) {
-        UIkit.notification({message: JSON.stringify(emailToShare), status: 'danger', timeout: 1000});
         if(!emailToShare || !regex_mail.test(emailToShare)) {
             UIkit.notification({message: 'Entrez un Mail valide!', status: 'danger', timeout: 1000});
             return;

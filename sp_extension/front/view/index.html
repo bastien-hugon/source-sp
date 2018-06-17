@@ -15,7 +15,7 @@
     </div>
     <h3>Comptes partages</h3>
     <!-- Add foreach on all websites account-->
-    <div class="uk-card uk-card-success uk-margin" ng-if="loginShared" ng-repeat="mail in loginShared">
+    <div class="uk-card uk-card-success uk-margin" ng-if="loginShared" ng-click="getActiveSession($index)" ng-repeat="mail in loginShared track by $index" style="cursor: pointer;">
             <p class="uk-margin-small-left uk-text-middle" style="display: inline; font-size: 20px">{{mail.from}}</p>
             <a href="" class="uk-margin-small-left uk-icon-button" uk-icon="trash"></a>
     </div>
