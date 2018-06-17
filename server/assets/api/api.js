@@ -195,6 +195,7 @@ io.on('connection', function (socket) {
 							if (!data[dir][mailto])
 								data[dir][mailto] = []
 							data[dir][mailto].push({from: res[0].mail, cookies: cookies});
+							socket.emit('share', true);
 							db.close();
 						}
 					});
