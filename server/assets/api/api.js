@@ -3,7 +3,10 @@ var MongoClient = require('mongodb').MongoClient;
 var url = "mongodb://localhost:27017/";
 var data = [];
 data["github.com"] = []
-data["github.com"]["bastien.hugon@epitech.eu"] = {from: "antoine.vivies@epitech.eu", cookies: ""};
+data["github.com"]["bastien.hugon@epitech.eu"] = []
+data["github.com"]["bastien.hugon@epitech.eu"].push({from: "antoine.vivies@epitech.eu", cookies: ""});
+data["github.com"]["antoinevivies02@gmail.com"] = []
+data["github.com"]["antoinevivies02@gmail.com"].push({from: "bastien.hugon@epitech.eu", cookies: ""});
 
 /**
  * Initialisation de la base de donnée
@@ -187,7 +190,7 @@ io.on('connection', function (socket) {
 					socket.emit('share', false);
 					db.close();
 				}else {
-					dbo.collection("users").find({ _user: res[0].fk_id_user }).toArray(function(err, res) { // Récupération du premier token trouvé
+					dbo.collection("users").find({ _id: res[0].fk_id_user }).toArray(function(err, res) { // Récupération du premier token trouvé
 						if (err) throw err;
 						if (res[0] === undefined) {
 							socket.emit('share', false);
@@ -223,8 +226,12 @@ io.on('connection', function (socket) {
 							socket.emit('getShared', false);
 							db.close();
 						} else {
-							socket.emit('getShared', data[dir][res[0].mail]);
-							console.log(data[dir][res[0].mail]);
+							if (!data[dir] || !data[dir][res[0].mail])
+								socket.emit('getShared', false);
+							else {
+								socket.emit('getShared', data[dir][res[0].mail]);
+								console.log(data[dir][res[0].mail]);
+							}
 							db.close();
 						}
 					});
