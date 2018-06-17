@@ -11,7 +11,8 @@ passwordModule.controller('index', ['$scope', '$location', '$rootScope', '$route
                     $location.path("login");
                     $scope.$apply();
                 }
-            });
+            });var quizUp = angular.module('quizUp', []);
+
 		}
 	});
 
