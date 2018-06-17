@@ -14,7 +14,7 @@ passwordModule.controller('index', ['$scope', '$location', '$rootScope', '$route
 		}
 	});
 
-    var MAIL = null;
+    $scope.current_website = CURRENT_DIR;
 
     api.getID(TOKEN.TOKEN, CURRENT_DIR, function(res) {
         $scope.login = res.login
@@ -23,9 +23,19 @@ passwordModule.controller('index', ['$scope', '$location', '$rootScope', '$route
             $scope.$apply()
         });
     });
-
-
-    UIkit.notification({message: CURRENT_DIR, status: 'warning', timeout: 1000});
+    
+    var regex_mail = /^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/;
+    $scope.sharedSession = function(emailToShare) {
+        UIkit.notification({message: JSON.stringify(emailToShare), status: 'danger', timeout: 1000});
+        if(!emailToShare || !regex_mail.test(emailToShare)) {
+            UIkit.notification({message: 'Entrez un Mail valide!', status: 'danger', timeout: 1000});
+            return;
+        } else {
+            api.share(TOKEN.TOKEN, CURRENT_DIR, emailToShare, function(res){
+                return res;
+            });
+        }
+    }
 
     /*
     // Password Saved found ? ------------------
