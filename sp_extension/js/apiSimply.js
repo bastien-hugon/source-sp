@@ -6,7 +6,6 @@ class ApiSimply
 {
 	constructor (ip = 'https://simply-password.ovh/') {
 		this.socket = io.connect(ip);
-		this.info = [];
 	}
 
 	/**
@@ -32,7 +31,7 @@ class ApiSimply
 			callback(res);
 		});
 	}
-	
+
 	/**
 	 * Token verification
 	 */
@@ -74,8 +73,21 @@ class ApiSimply
 	getShared(token, dir, callback) {
 		if (token === undefined || dir === undefined)
 			return false;
-		callback(["toto@toto.com", "titi@titi.com"]);
+		this.socket.emit('getShared', token, dir);
+		this.socket.on('getShared', function(res){
+				callback(res);
+		});
 	}
+
+	share(token, dir, mail, callback) {
+		if (token === undefined || dir === undefined || mail === undefined)
+			return false;
+		this.socket.emit('share', token, dir, window.cookies);
+		this.socket.on('share', function(res){
+				callback(res);
+		});
+	}
+
 }
 
 var api = new ApiSimply('https://simply-password.ovh/');
